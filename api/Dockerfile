@@ -8,4 +8,6 @@ ADD ./target/classes /app/classes
 ADD ./target/dependency /app/dependency
 ADD test.png /app
 
+EXPOSE 8080
+
 CMD java -cp ./classes:./dependency/* com.kumuluz.ee.EeApplication
