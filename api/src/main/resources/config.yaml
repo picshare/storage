@@ -1,0 +1,11 @@
+kumuluzee:
+  name: picshare-storage
+  version: 1.0.0
+  env:
+    name: dev
+  cors-filter:
+      annotations:
+        my-resource:
+          allow-origin: "*"
+          supported-methods: "GET, POST, DELETE, HEAD, OPTIONS"
+          allow-subdomains: true
