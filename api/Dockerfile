@@ -6,7 +6,6 @@ WORKDIR /app
 
 ADD ./target/classes /app/classes
 ADD ./target/dependency /app/dependency
-ADD test.png /app
 
 EXPOSE 8080
 
