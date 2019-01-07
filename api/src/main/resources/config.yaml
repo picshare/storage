@@ -1,6 +1,9 @@
 kumuluzee:
   name: picshare-storage
   version: 1.0.0
+  server:
+      http:
+        port: 8081
   env:
     name: dev
   cors-filter:
@@ -9,3 +12,12 @@ kumuluzee:
           allow-origin: "*"
           supported-methods: "GET, POST, DELETE, HEAD, OPTIONS"
           allow-subdomains: true
+  config:
+      start-retry-delay-ms: 500
+      max-retry-delay-ms: 900000
+      etcd:
+        hosts: http://localhost:2379
+
+storage:
+  imagefolder: "/media/jernej/Ostalo/Moji Dokumenti/FRI/magistrski/1.\ letnik/Racunalniske storitve\ v\ oblaku/storage"
+  disablestorage: false

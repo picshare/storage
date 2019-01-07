@@ -18,7 +18,7 @@ cache:
   - $HOME/.m2
 
 env:
-  - DOCKER_IMAGE=jernejcernelc/picshare-storage:0.1
+  - DOCKER_IMAGE=jernejcernelc/picshare-storage
 
 script:
   - mvn clean package -U

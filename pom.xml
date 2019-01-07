@@ -18,6 +18,7 @@
         <maven.compiler.target>1.8</maven.compiler.target>
         <kumuluzee.version>2.5.0-SNAPSHOT</kumuluzee.version>
         <kumuluzee-rest.version>1.1.0</kumuluzee-rest.version>
+        <kumuluzee-config.version>1.1.0</kumuluzee-config.version>
         <kumuluzee-openapi.version>1.0.0-SNAPSHOT</kumuluzee-openapi.version>
         <postgresql.version>42.1.4</postgresql.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -26,7 +27,9 @@
 
     <modules>
         <module>api</module>
+        <module>entitete</module>
     </modules>
+
 
     <dependencyManagement>
         <dependencies>
@@ -82,10 +85,20 @@
                 <artifactId>kumuluzee-openapi</artifactId>
                 <version>${kumuluzee-openapi.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.kumuluz.ee.config</groupId>
+                <artifactId>kumuluzee-config-etcd</artifactId>
+                <version>${kumuluzee-config.version}</version>
+            </dependency>
             <!-- module dependencies -->
             <dependency>
                 <groupId>picshare</groupId>
                 <artifactId>picshare-storage-api</artifactId>
+                <version>${api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>picshare</groupId>
+                <artifactId>picshare-storage-entitete</artifactId>
                 <version>${api.version}</version>
             </dependency>
             <dependency>
