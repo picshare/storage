@@ -34,7 +34,7 @@ public class ImageResource {
     public Response returnImage(@PathParam("userId") Integer userId, @PathParam("albumId") Integer albumId, @PathParam("imageId") Integer imageId) {
         final byte[] image;
         try {
-            if(sc.isDisablestorage()) {
+            if(sc.isDisablestorage() == "false") {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             File fi = new File(sc.getImagefolder() +"/images/"+userId+"-"+albumId+"-"+imageId+".png");
@@ -57,7 +57,7 @@ public class ImageResource {
     @POST
     public Response saveImage(newImage image) {
         try {
-            if(sc.isDisablestorage()) {
+            if(sc.isDisablestorage() == "false") {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             final byte[] decodedImage = Base64.getDecoder().decode(image.getEncodedImage());
@@ -73,7 +73,7 @@ public class ImageResource {
     @PUT
     public Response updateImage(updateImage image) {
         try {
-            if(sc.isDisablestorage()) {
+            if(sc.isDisablestorage() == "false") {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             File file = new File(sc.getImagefolder()+"/images/"+image.getUserId()+"-"+image.getOldAlbumId()+"-"+image.getImageId()+".png");
@@ -98,7 +98,7 @@ public class ImageResource {
     @Path("/{userId}/{albumId}/{imageId}")
     public Response removeImage(@PathParam("userId") Integer userId, @PathParam("albumId") Integer albumId, @PathParam("imageId") Integer imageId) {
         try {
-            if(sc.isDisablestorage()) {
+            if(sc.isDisablestorage() == "false") {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             File file = new File(sc.getImagefolder()+"/images/"+userId+"-"+albumId+"-"+imageId+".png");

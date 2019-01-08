@@ -17,7 +17,16 @@ kumuluzee:
       max-retry-delay-ms: 900000
       etcd:
         hosts: http://localhost:2379
+  health:
+      servlet:
+        mapping: /health
+        enabled: true
+      checks:
+        disk-space-health-check:
+          threshold: 1000000
+
+
 
 storage:
   imagefolder: "/media/jernej/Ostalo/Moji Dokumenti/FRI/magistrski/1.\ letnik/Racunalniske storitve\ v\ oblaku/storage"
-  disablestorage: false
+  disablestorage: "true"
