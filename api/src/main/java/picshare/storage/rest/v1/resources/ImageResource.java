@@ -1,6 +1,8 @@
 package picshare.storage.rest.v1.resources;
 
 import org.apache.commons.io.FileUtils;
+import org.eclipse.microprofile.metrics.Counter;
+import org.eclipse.microprofile.metrics.annotation.Metric;
 import picshare.storage.config.StorageConfig;
 import picshare.storage.entitete.business.newImage;
 import picshare.storage.entitete.business.updateImage;
@@ -28,13 +30,17 @@ public class ImageResource {
     @Inject
     private StorageConfig sc;
 
+    @Inject
+    @Metric(name = "number-of-images-accepted")
+    private Counter counter;
+
     @GET
     @Path("/{userId}/{albumId}/{imageId}")
     @Produces("image/png")
     public Response returnImage(@PathParam("userId") Integer userId, @PathParam("albumId") Integer albumId, @PathParam("imageId") Integer imageId) {
         final byte[] image;
         try {
-            if(sc.isDisablestorage() == "false") {
+            if(!sc.isDisablestorage()) {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             File fi = new File(sc.getImagefolder() +"/images/"+userId+"-"+albumId+"-"+imageId+".png");
@@ -57,12 +63,13 @@ public class ImageResource {
     @POST
     public Response saveImage(newImage image) {
         try {
-            if(sc.isDisablestorage() == "false") {
+            if(!sc.isDisablestorage()) {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             final byte[] decodedImage = Base64.getDecoder().decode(image.getEncodedImage());
             File outputfile = new File(sc.getImagefolder()+"/images/"+image.getUserId()+"-"+image.getAlbumId()+"-"+image.getImageId()+".png");
             FileUtils.writeByteArrayToFile(outputfile, decodedImage);
+            counter.inc();
             return Response.ok().build();
         } catch (Exception e) {
             log.info("No image found");
@@ -73,7 +80,7 @@ public class ImageResource {
     @PUT
     public Response updateImage(updateImage image) {
         try {
-            if(sc.isDisablestorage() == "false") {
+            if(!sc.isDisablestorage()) {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             File file = new File(sc.getImagefolder()+"/images/"+image.getUserId()+"-"+image.getOldAlbumId()+"-"+image.getImageId()+".png");
@@ -98,7 +105,7 @@ public class ImageResource {
     @Path("/{userId}/{albumId}/{imageId}")
     public Response removeImage(@PathParam("userId") Integer userId, @PathParam("albumId") Integer albumId, @PathParam("imageId") Integer imageId) {
         try {
-            if(sc.isDisablestorage() == "false") {
+            if(!sc.isDisablestorage()) {
                 throw new Exception("Storage folder disabled for maintainance");
             }
             File file = new File(sc.getImagefolder()+"/images/"+userId+"-"+albumId+"-"+imageId+".png");

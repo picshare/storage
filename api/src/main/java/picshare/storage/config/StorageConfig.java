@@ -12,7 +12,7 @@ public class StorageConfig {
 
     private String imagefolder;
     @ConfigValue(watch = true)
-    private String disablestorage;
+    private boolean disablestorage;
 
     public String getImagefolder() {
         return imagefolder;
@@ -22,11 +22,11 @@ public class StorageConfig {
         this.imagefolder = imagefolder;
     }
 
-    public String isDisablestorage() {
+    public boolean isDisablestorage() {
         return disablestorage;
     }
 
-    public void setDisablestorage(String disablestorage) {
+    public void setDisablestorage(boolean disablestorage) {
         this.disablestorage = disablestorage;
     }
 }
