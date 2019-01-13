@@ -29,4 +29,4 @@ kumuluzee:
 
 storage:
   imagefolder: "/media/jernej/Ostalo/Moji Dokumenti/FRI/magistrski/1.\ letnik/Racunalniske storitve\ v\ oblaku/storage"
-  disablestorage: "true"
+  disablestorage: "false"

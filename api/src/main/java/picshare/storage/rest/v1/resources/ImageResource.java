@@ -1,6 +1,8 @@
 package picshare.storage.rest.v1.resources;
 
+import com.kumuluz.ee.logs.cdi.Log;
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.LogManager;
 import org.eclipse.microprofile.metrics.Counter;
 import org.eclipse.microprofile.metrics.annotation.Metric;
 import picshare.storage.config.StorageConfig;
@@ -18,14 +20,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.util.Base64;
-import java.util.logging.Logger;
 
 @Path("image")
+@Log
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 @ApplicationScoped
 public class ImageResource {
-    private final Logger log = Logger.getLogger(this.getClass().getName());
+    private static final org.apache.log4j.Logger LOG = LogManager.getLogger(ImageResource.class.getName());
 
     @Inject
     private StorageConfig sc;
@@ -55,7 +57,7 @@ public class ImageResource {
                 }
             }).build();
         } catch (Exception e) {
-            log.info("No image found");
+            LOG.info("No image found");
             return Response.status(404).entity(null).build();
         }
     }
@@ -72,7 +74,7 @@ public class ImageResource {
             counter.inc();
             return Response.ok().build();
         } catch (Exception e) {
-            log.info("No image found");
+            LOG.info(e.toString());
             return Response.status(404).entity(null).build();
         }
     }
@@ -96,7 +98,7 @@ public class ImageResource {
 
             return Response.ok().build();
         } catch (Exception e) {
-            log.info(e.toString());
+            LOG.info(e.toString());
             return Response.status(404).entity(null).build();
         }
     }
@@ -115,7 +117,7 @@ public class ImageResource {
 
             return Response.status(Response.Status.NO_CONTENT).build();
         } catch (Exception e) {
-            log.info(e.toString());
+            LOG.info(e.toString());
             return Response.status(404).entity(null).build();
         }
     }
